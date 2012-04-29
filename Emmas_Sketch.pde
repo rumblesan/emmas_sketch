@@ -7,7 +7,7 @@ void setup() {
   
   size(1920, 1200);
   
-  numberOfTriangles = 1;
+  numberOfTriangles = 150;
   allTriangles = new ArrayList();
   
   screenCentre = new PVector(width/2, height/2);
@@ -24,6 +24,7 @@ void setup() {
     allTriangles.add(new Triangle(centre));
   }
   
+  noFill();
   smooth();
   
 }
@@ -32,11 +33,11 @@ void setup() {
 void draw() {
   
   noStroke();
-  fill(155, 50);
+  fill(155, 30);
   rect(0, 0, width, height);
   stroke(0);
   
-  fill(255);
+  noFill();
   
   for (int i = 0; i < allTriangles.size(); i++) {
     Triangle t = (Triangle) allTriangles.get(i);
