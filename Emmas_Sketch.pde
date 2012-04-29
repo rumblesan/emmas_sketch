@@ -1,30 +1,26 @@
 
-int numberOfTriangles;
 ArrayList allTriangles;
 PVector screenCentre;
 
 void setup() {
 
   size(1920, 1200);
-
-  numberOfTriangles = 150;
-  screenCentre = new PVector(width/2, height/2);
-
   noFill();
   smooth();
-
   background(155);
-  createTriangles();
 
+  screenCentre = new PVector(width/2, height/2);
+
+  createTriangles(150);
 }
 
-void createTriangles () {
+void createTriangles (int number) {
 
   allTriangles = new ArrayList();
 
   float distance, angle;
 
-  for (int i = 0; i < numberOfTriangles; i++) {
+  for (int i = 0; i < number; i++) {
     distance = random(100, height/2);
     angle    = random(360);
 
@@ -36,7 +32,6 @@ void createTriangles () {
         )
       )
     );
-
   }
 
 }
