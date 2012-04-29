@@ -17,7 +17,7 @@ class Triangle {
     centre = c;
     points = new ArrayList();
 
-    sizeChangeValue  = random(10, 3600) / 10000;
+    sizeChangeValue  = radians(random(10, 3600) / 10000);
     sizeChangeAmount = 0;
 
     rotateSpeed = random(2);
@@ -39,15 +39,15 @@ class Triangle {
 
   float sizeChange() {
 
-    float sizeDiff = cos(radians(sizeChangeAmount)) / 2;
+    float sizeDiff = cos(sizeChangeAmount) / 2;
 
     //45 is a magic number, chosen through trial and error
     sizeDiff /= 45;
     sizeDiff += 1;
 
     sizeChangeAmount += sizeChangeValue;
-    if (sizeChangeAmount >= 360) {
-      sizeChangeAmount -= 360;
+    if (sizeChangeAmount >= 2 * PI) {
+      sizeChangeAmount -= 2 * PI;
     }
 
     return sizeDiff;
