@@ -1,102 +1,91 @@
 
 class Triangle {
-   
+
   PVector centre;
-  ArrayList p;
-  
-  int sMin = 20;
-  int sMax = 100;
-  
-  float rotValue;
-  
-  float sizeChange;
-  float sizeChangeCount = 0;
-  
+  ArrayList points;
+
+  float rotateSpeed;
+  float sizeChangeValue;
+  float sizeChangeAmount;
+
+  float cTheta;
+  float sTheta;
+
+
   Triangle(PVector c) {
-    
+
     centre = c;
-    
-    p = new ArrayList();
-    
-    float distance;
-    float sAngle, cAngle;
-    
-    sizeChange = round(random(500, 1000))/360;
-    
-    rotValue = random(2);
-    
+    points = new ArrayList();
+
+    sizeChangeValue  = random(10, 3600) / 10000;
+    sizeChangeAmount = 0;
+
+    rotateSpeed = random(2);
+    cTheta = cos(radians(rotateSpeed));
+    sTheta = sin(radians(rotateSpeed));
+
+
+    float distance, xVal, yVal;
     for (int i = 0; i < 3; i++) {
-      sAngle = sin(radians(120 * i));
-      cAngle = cos(radians(120 * i));
-      distance = random(sMin, sMax);
-      p.add(new PVector(sAngle * distance, cAngle * distance));
+
+      distance = random(20, 100);
+
+      xVal     = sin(radians(120 * i)) * distance;
+      yVal     = cos(radians(120 * i)) * distance;
+
+      points.add(new PVector(xVal, yVal));
     }
-  
   }
-  
+
   float sizeChange() {
-    
-    float num = sizeChangeCount * sizeChange;
-    float cVal = cos(radians(num));
-    float sizeDiff = (cVal / 30) + 1;
-    //println(sizeChangeCount + " " +  sizeChange + " " + num + " " + cVal + " " + sizeDiff);
-    sizeChangeCount++;
-    if (sizeChangeCount >= 360) {
-      sizeChangeCount = 0;
+
+    float sizeDiff = cos(radians(sizeChangeAmount)) / 2;
+
+    //45 is a magic number, chosen through trial and error
+    sizeDiff /= 45;
+    sizeDiff += 1;
+
+    sizeChangeAmount += sizeChangeValue;
+    if (sizeChangeAmount >= 360) {
+      sizeChangeAmount -= 360;
     }
+
     return sizeDiff;
   }
-  
-  void display() {
-    beginShape();
-    
-    PVector pos;
-    float x, y;
 
+
+  void display(PVector sC) {
+    PVector pos;
+
+    beginShape();
     for (int i = 0; i < 3; i++) {
-      pos = (PVector) p.get(i);
-      
+      pos = (PVector) points.get(i);
+
       pos.mult(sizeChange());
-      
-      x = pos.x + centre.x;
-      y = pos.y + centre.y;
-      vertex(x, y);
+
+      vertex(pos.x + centre.x + sC.x, pos.y + centre.y + sC.y);
     }
     endShape(CLOSE);
+
   }
 
 
-  void rotatePoints() {
-
-    float xTemp;
-    float theta = radians(rotValue);
+  void rotateTriangle() {
 
     PVector pos;
+    float xTemp = centre.x;
+
+    centre.x = centre.x * cTheta - centre.y * sTheta;
+    centre.y = xTemp    * sTheta + centre.y * cTheta;
 
     for (int i = 0; i < 3; i++) {
-      pos = (PVector) p.get(i);
+      pos = (PVector) points.get(i);
       xTemp = pos.x;
-      pos.x = pos.x * cos(theta) - pos.y * sin(theta);
-      pos.y = xTemp * sin(theta) + pos.y * cos(theta);
+      pos.x = pos.x * cTheta - pos.y * sTheta;
+      pos.y = xTemp * sTheta + pos.y * cTheta;
     }
-  
-  }
 
-
-  void rotateTriangle(PVector c) {
-    
-    centre.sub(c);
-    
-    float xTemp = centre.x;
-    float theta = radians(rotValue);
-
-    centre.x = centre.x * cos(theta) - centre.y * sin(theta);
-    centre.y = xTemp * sin(theta) + centre.y * cos(theta);
-    
-    centre.add(c);
-    
-    rotatePoints();
-    
   }
 
 }
+
