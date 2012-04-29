@@ -7,7 +7,7 @@ void setup() {
 
   size(1920, 1200);
 
-  numberOfTriangles = 20;
+  numberOfTriangles = 150;
   allTriangles = new ArrayList();
 
   screenCentre = new PVector(width/2, height/2);
@@ -31,7 +31,7 @@ void setup() {
 void draw() {
 
   noStroke();
-  fill(155, 30);
+  fill(155, 10);
   rect(0, 0, width, height);
   noFill();
   stroke(0);

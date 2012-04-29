@@ -8,6 +8,10 @@ class Triangle {
   float sizeChangeValue;
   float sizeChangeAmount;
 
+  float cTheta;
+  float sTheta;
+
+
   Triangle(PVector c) {
 
     centre = c;
@@ -17,6 +21,9 @@ class Triangle {
     sizeChangeAmount = 0;
 
     rotateSpeed = random(2);
+    cTheta = cos(radians(rotateSpeed));
+    sTheta = sin(radians(rotateSpeed));
+
 
     float distance, xVal, yVal;
     for (int i = 0; i < 3; i++) {
@@ -67,9 +74,6 @@ class Triangle {
 
     PVector pos;
     float xTemp = centre.x;
-
-    float cTheta = cos(radians(rotateSpeed));
-    float sTheta = sin(radians(rotateSpeed));
 
     centre.x = centre.x * cTheta - centre.y * sTheta;
     centre.y = xTemp    * sTheta + centre.y * cTheta;
