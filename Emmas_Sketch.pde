@@ -8,30 +8,48 @@ void setup() {
   size(1920, 1200);
 
   numberOfTriangles = 150;
-  allTriangles = new ArrayList();
-
   screenCentre = new PVector(width/2, height/2);
 
-  PVector centre;
+  noFill();
+  smooth();
+
+  background(155);
+  createTriangles();
+
+}
+
+void createTriangles () {
+
+  allTriangles = new ArrayList();
+
   float distance, angle;
 
   for (int i = 0; i < numberOfTriangles; i++) {
     distance = random(100, height/2);
     angle    = random(360);
-    centre = new PVector(sin(angle) * distance, cos(angle) * distance);
 
-    allTriangles.add(new Triangle(centre));
+    allTriangles.add(
+      new Triangle(
+        new PVector(
+          sin(angle) * distance,
+          cos(angle) * distance
+        )
+      )
+    );
+
   }
 
-  noFill();
-  smooth();
 }
 
+void mouseClicked() {
+  background(155);
+  createTriangles();
+}
 
 void draw() {
 
   noStroke();
-  fill(155, 10);
+  fill(155, 30);
   rect(0, 0, width, height);
   noFill();
   stroke(0);
