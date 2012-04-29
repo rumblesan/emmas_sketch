@@ -1,6 +1,7 @@
 
 ArrayList allTriangles;
 PVector screenCentre;
+int triangles;
 
 void setup() {
 
@@ -9,9 +10,10 @@ void setup() {
   smooth();
   background(155);
 
+  triangles = 150;
   screenCentre = new PVector(width/2, height/2);
 
-  createTriangles(150);
+  createTriangles(triangles);
 }
 
 void createTriangles (int number) {
@@ -38,7 +40,7 @@ void createTriangles (int number) {
 
 void mouseClicked() {
   background(155);
-  createTriangles();
+  createTriangles(triangles);
 }
 
 void draw() {
