@@ -21,7 +21,7 @@ class Triangle {
     float distance;
     float sAngle, cAngle;
     
-    sizeChange = round(random(1000, 4000))/360;
+    sizeChange = round(random(500, 1000))/360;
     
     rotValue = random(2);
     
@@ -38,7 +38,7 @@ class Triangle {
     
     float num = sizeChangeCount * sizeChange;
     float cVal = cos(radians(num));
-    float sizeDiff = (cVal / 100) + 1;
+    float sizeDiff = (cVal / 30) + 1;
     //println(sizeChangeCount + " " +  sizeChange + " " + num + " " + cVal + " " + sizeDiff);
     sizeChangeCount++;
     if (sizeChangeCount >= 360) {
