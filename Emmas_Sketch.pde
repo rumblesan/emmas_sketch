@@ -1,3 +1,4 @@
+import processing.opengl.*;
 
 ArrayList allTriangles;
 PVector screenCentre;
@@ -5,10 +6,10 @@ int triangles;
 
 void setup() {
 
-  size(1920, 1200);
+  size(1920, 1200, OPENGL);
   noFill();
-  smooth();
   background(155);
+  stroke(0);
 
   triangles = 150;
   screenCentre = new PVector(width/2, height/2);
@@ -46,7 +47,7 @@ void mouseClicked() {
 void draw() {
 
   noStroke();
-  fill(155, 30);
+  fill(155, 50);
   rect(0, 0, width, height);
   noFill();
   stroke(0);
@@ -57,5 +58,6 @@ void draw() {
     t.display(screenCentre);
   }
 
+  println(frameRate);
 }
 
