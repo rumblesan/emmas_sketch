@@ -57,11 +57,13 @@ class Triangle {
   void display(PVector sC) {
     PVector pos;
 
+    float change = sizeChange();
+
     beginShape();
     for (int i = 0; i < 3; i++) {
       pos = (PVector) points.get(i);
 
-      pos.mult(sizeChange());
+      pos.mult(change);
 
       vertex(pos.x + centre.x + sC.x, pos.y + centre.y + sC.y);
     }
