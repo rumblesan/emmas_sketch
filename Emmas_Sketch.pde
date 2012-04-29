@@ -5,9 +5,9 @@ PVector screenCentre;
 
 void setup() {
   
-  size(1024, 768);
+  size(1920, 1200);
   
-  numberOfTriangles = 100;
+  numberOfTriangles = 1;
   allTriangles = new ArrayList();
   
   screenCentre = new PVector(width/2, height/2);
@@ -16,7 +16,7 @@ void setup() {
   float distance, angle;
   
   for (int i = 0; i < numberOfTriangles; i++) {
-    distance = random(400);
+    distance = random(100, height/2);
     angle    = random(360);
     centre = new PVector(sin(angle) * distance, cos(angle) * distance);
     

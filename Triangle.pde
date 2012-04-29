@@ -4,10 +4,13 @@ class Triangle {
   PVector centre;
   ArrayList p;
   
-  int sMin = 30;
+  int sMin = 20;
   int sMax = 100;
   
   float rotValue;
+  
+  float sizeChange;
+  float sizeChangeCount = 0;
   
   Triangle(PVector c) {
     
@@ -17,6 +20,8 @@ class Triangle {
     
     float distance;
     float sAngle, cAngle;
+    
+    sizeChange = round(random(1000, 4000))/360;
     
     rotValue = random(2);
     
@@ -29,21 +34,37 @@ class Triangle {
   
   }
   
+  float sizeChange() {
+    
+    float num = sizeChangeCount * sizeChange;
+    float cVal = cos(radians(num));
+    float sizeDiff = (cVal / 100) + 1;
+    //println(sizeChangeCount + " " +  sizeChange + " " + num + " " + cVal + " " + sizeDiff);
+    sizeChangeCount++;
+    if (sizeChangeCount >= 360) {
+      sizeChangeCount = 0;
+    }
+    return sizeDiff;
+  }
+  
   void display() {
     beginShape();
     
     PVector pos;
     float x, y;
-    
+
     for (int i = 0; i < 3; i++) {
       pos = (PVector) p.get(i);
+      
+      pos.mult(sizeChange());
+      
       x = pos.x + centre.x;
       y = pos.y + centre.y;
       vertex(x, y);
-      println(x + " " + y);
     }
     endShape(CLOSE);
   }
+
 
   void rotatePoints() {
 
@@ -60,7 +81,8 @@ class Triangle {
     }
   
   }
-  
+
+
   void rotateTriangle(PVector c) {
     
     centre.sub(c);
