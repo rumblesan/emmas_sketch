@@ -3,6 +3,11 @@ import processing.opengl.*;
 ArrayList allTriangles;
 PVector screenCentre;
 int triangles;
+float startTime;
+float currentTime;
+float resetTime;
+
+color triangleColour;
 
 void setup() {
 
@@ -14,10 +19,34 @@ void setup() {
   triangles = 150;
   screenCentre = new PVector(width/2, height/2);
 
-  createTriangles(triangles);
+  resetTime = 60000;
+
+  resetTriangles(triangles);
+
+  triangleColour = color(157);
 }
 
-void createTriangles (int number) {
+void triangleColor() {
+
+  triangleColour = color(
+        int(random(256)),
+        int(random(256)),
+        int(random(256))
+      );
+
+  println("Creating new triangles");
+  println("RGB Colour is :");
+  println(red(triangleColour));
+  println(green(triangleColour));
+  println(blue(triangleColour));
+  println("\n");
+
+}
+
+void resetTriangles (int number) {
+
+  background(155);
+  startTime = millis();
 
   allTriangles = new ArrayList();
 
@@ -40,24 +69,29 @@ void createTriangles (int number) {
 }
 
 void mouseClicked() {
-  background(155);
-  createTriangles(triangles);
+  resetTriangles(triangles);
+}
+
+void checkTime() {
+  currentTime = millis();
+  if (currentTime > (startTime + resetTime)) {
+    resetTriangles(triangles);
+  }
 }
 
 void draw() {
 
+  checkTime();
   noStroke();
-  fill(155, 50);
+  fill(70, 50);
   rect(0, 0, width, height);
   noFill();
-  stroke(0);
+  stroke(triangleColour);
 
   for (int i = 0; i < allTriangles.size(); i++) {
     Triangle t = (Triangle) allTriangles.get(i);
     t.rotateTriangle();
     t.display(screenCentre);
   }
-
-  println(frameRate);
 }
 
