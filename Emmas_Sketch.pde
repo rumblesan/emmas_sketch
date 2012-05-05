@@ -18,10 +18,10 @@ void setup() {
   background(155);
   stroke(0);
 
-  triangles = 150;
+  triangles = 50;
   screenCentre = new PVector(width/2, height/2);
 
-  resetTime = 6000;
+  resetTime = 600000;
 
   resetTriangles(triangles);
 
