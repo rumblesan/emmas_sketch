@@ -7,7 +7,9 @@ float startTime;
 float currentTime;
 float resetTime;
 
+
 color triangleColour;
+color backgroundColour;
 
 void setup() {
 
@@ -19,34 +21,26 @@ void setup() {
   triangles = 150;
   screenCentre = new PVector(width/2, height/2);
 
-  resetTime = 60000;
+  resetTime = 6000;
 
   resetTriangles(triangles);
 
-  triangleColour = color(157);
+  triangleColour = color(255);
 }
 
-void triangleColor() {
+void setColours() {
 
-  triangleColour = color(
-        int(random(256)),
-        int(random(256)),
-        int(random(256))
-      );
-
-  println("Creating new triangles");
-  println("RGB Colour is :");
-  println(red(triangleColour));
-  println(green(triangleColour));
-  println(blue(triangleColour));
-  println("\n");
+  color tempColour = triangleColour;
+  triangleColour = backgroundColour;
+  backgroundColour = tempColour;
 
 }
 
 void resetTriangles (int number) {
 
-  background(155);
   startTime = millis();
+
+  setColours();
 
   allTriangles = new ArrayList();
 
@@ -83,7 +77,7 @@ void draw() {
 
   checkTime();
   noStroke();
-  fill(70, 50);
+  fill(backgroundColour, 50);
   rect(0, 0, width, height);
   noFill();
   stroke(triangleColour);
